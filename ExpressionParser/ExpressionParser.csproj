@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Scanner\" />
+    <Folder Include="Parser\" />
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+</Project>
