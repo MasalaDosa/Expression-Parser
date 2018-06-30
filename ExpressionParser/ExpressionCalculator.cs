@@ -20,10 +20,16 @@ namespace ExpressionParser
 			var s = new Scanner.Scanner();
 			s.Scan(expression);
             Console.WriteLine($"Tokens: {s.Tokens.ToShortString()}");
+            Console.WriteLine();
 			var p = new Parser.Parser();
-			p.ParseExpression(s.Tokens, true);
+			p.ParseExpression(s.Tokens);
             string rpn = string.Join(" ", p.RPN().Select(r => r.ToString()));
+            Console.WriteLine();
             Console.WriteLine($"RPN: {rpn}");
+            Console.WriteLine();
+            Console.WriteLine("Tree:");
+            p.Root().Dump();
+            Console.WriteLine();
 
 			double result = ProcessRPN(p.RPN());
 			return result;

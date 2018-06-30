@@ -57,6 +57,7 @@ namespace ExpressionParser.Scanner
         {
             while (_expression.Peek() != -1)
             {
+                var position = _position;
                 char current = (char)_expression.Peek();
                 if (Char.IsWhiteSpace(current))
                 {
@@ -65,14 +66,18 @@ namespace ExpressionParser.Scanner
                 else if (IsSingleCharToken(current))
                 {
                     Read();
-                    yield return Token.FromSingleChar(current, _position);
+                    yield return Token.FromSingleChar(current, position);
                 }
                 else if (Char.IsDigit(current) || current == '.')
-                    yield return Token.FromDouble(ScanReal(), _position);
+                {
+                    yield return Token.FromDouble(ScanReal(), position);
+                }
                 else if (Char.IsLetter(current))
-                    yield return Token.FromString(ScanName(), _position);
+                {
+                    yield return Token.FromString(ScanName(), position);
+                }
                 else
-                    throw new ScannerExceptionWithPosition(string.Format("Scanner encountered unexpected char {0} at {1}.", current, _position), _position);
+                    throw new ScannerExceptionWithPosition(string.Format("Scanner encountered unexpected char {0} at {1}.", current, position), _position);
             }
             yield return Token.EOF(_position);
         }
